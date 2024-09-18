@@ -28,19 +28,11 @@ const Signup = () => {
       });
 
       const result = await response.json();
-
       if (response.ok) {
         setMessage(result.message);
         navigate("/Login");
-        // window.location.href = "/login";
-        // Clear form fields
-        // setFormData({
-        //   username: "",
-        //   email: "",
-        //   password: "",
-        // });
       } else {
-        setMessage(result.message || "Singup failed");
+        setMessage(result.message || "Signup failed");
       }
     } catch (error) {
       console.error("Error during signup:", error);
@@ -50,7 +42,7 @@ const Signup = () => {
 
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="bg-yellow-300 text-black font-bold p-2 mb-4">
         Signup Page
       </div>

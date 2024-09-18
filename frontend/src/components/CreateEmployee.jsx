@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
 const CreateEmployee = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    mobile: "",
+    phone: "",
     designation: "",
     gender: "",
     course: [],
@@ -13,22 +14,29 @@ const CreateEmployee = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const [submittedEmails, setSubmittedEmails] = useState([]);
+  const [submitError, setSubmitError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Clear errors on component mount
+    setErrors({});
+    setSubmitError("");
+  }, []);
 
   const handleChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
+    const { name, value, type, checked } = e.target;
 
     if (type === "checkbox") {
       setFormData((prevData) => ({
         ...prevData,
-        course: checked
-          ? [...prevData.course, value]
-          : prevData.course.filter((course) => course !== value),
+        [name]: checked
+          ? [...prevData[name], value]
+          : prevData[name].filter((item) => item !== value),
       }));
     } else if (type === "file") {
       setFormData((prevData) => ({
         ...prevData,
-        image: files[0],
+        [name]: e.target.files[0],
       }));
     } else {
       setFormData((prevData) => ({
@@ -37,283 +45,255 @@ const CreateEmployee = () => {
       }));
     }
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrors({});
+    setSubmitError("");
 
-  const validateForm = () => {
     let formErrors = {};
-
-    // Check if name, email, and mobile are provided
-    if (!formData.name.trim()) formErrors.name = "Name is required";
-    if (!formData.email.trim()) formErrors.email = "Email is required";
-    if (!formData.mobile.trim())
-      formErrors.mobile = "Mobile number is required";
-
-    // Check email format
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (formData.email && !emailPattern.test(formData.email)) {
-      formErrors.email = "Invalid email format";
-    }
-
-    // Check if the email is already submitted
-    if (submittedEmails.includes(formData.email)) {
-      formErrors.email = "Email already exists";
-    }
-
-    // Check if mobile number is numeric
-    const mobilePattern = /^\d{10}$/;
-    if (formData.mobile && !mobilePattern.test(formData.mobile)) {
-      formErrors.mobile = "Mobile number must be 10 digits";
-    }
-
-    // Check if a gender is selected
+    if (!formData.name) formErrors.name = "Name is required";
+    if (!formData.email) formErrors.email = "Email is required";
+    if (!formData.phone) formErrors.phone = "phone is required";
+    if (!formData.designation)
+      formErrors.designation = "Designation is required";
     if (!formData.gender) formErrors.gender = "Gender is required";
-
-    // Check if at least one course is selected
     if (formData.course.length === 0)
       formErrors.course = "At least one course must be selected";
+    // if (formData.image === null) formErrors.image = "Image is required";
 
-    // Check if image file is of type jpg or png
-    if (
-      formData.image &&
-      !["image/jpeg", "image/png"].includes(formData.image.type)
-    ) {
-      formErrors.image = "Only jpg/png files are allowed";
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
     }
 
-    setErrors(formErrors);
+    const formDataToSend = new FormData();
+    formDataToSend.append("name", formData.name);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("phone", formData.phone);
+    formDataToSend.append("designation", formData.designation);
+    formDataToSend.append("gender", formData.gender);
+    formDataToSend.append("course", formData.course.join(","));
+    formDataToSend.append("image", formData.image);
 
-    // Return true if no errors
-    return Object.keys(formErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (validateForm()) {
-      console.log("Form Submitted", formData);
-
-      // Store submitted email to prevent duplicates
-      setSubmittedEmails([...submittedEmails, formData.email]);
-
-      // Reset form after submission (optional)
-      setFormData({
-        name: "",
-        email: "",
-        mobile: "",
-        designation: "",
-        gender: "",
-        course: [],
-        image: null,
+    const token = localStorage.getItem("jwtToken");
+    try {
+      const response = await fetch("http://localhost:8000/api/employees", {
+        method: "POST",
+        body: formDataToSend,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
+      if (response.ok) {
+        navigate("/EmployeeList");
+      } else {
+        const result = await response.json();
+        setSubmitError(result.message || "Error creating employee");
+      }
+    } catch (error) {
+      console.error("Error during employee creation:", error);
+      setSubmitError("Server error");
     }
   };
 
   return (
     <div>
       <Navbar />
-      <h1 className="bg-yellow-300 text-black font-semibold p-2 px-4 mb-4">
+      <div className="bg-yellow-300 text-black font-bold p-2 mb-4">
         Create Employee
-      </h1>
-      <div className="flex justify-center items-center h-screen">
-        <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-          onSubmit={handleSubmit}
-        >
-          {/* Name */}
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="name"
-            >
-              Name
-            </label>
-            <input
-              className={`shadow appearance-none border ${
-                errors.name ? "border-red-500" : ""
-              } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
-              id="name"
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            {errors.name && (
-              <p className="text-red-500 text-xs italic">{errors.name}</p>
-            )}
-          </div>
-
-          {/* Email */}
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
-            >
-              Email
-            </label>
-            <input
-              className={`shadow appearance-none border ${
-                errors.email ? "border-red-500" : ""
-              } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
-              id="email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-xs italic">{errors.email}</p>
-            )}
-          </div>
-
-          {/* Mobile */}
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="mobile"
-            >
-              Mobile No
-            </label>
-            <input
-              className={`shadow appearance-none border ${
-                errors.mobile ? "border-red-500" : ""
-              } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
-              id="mobile"
-              type="text"
-              name="mobile"
-              value={formData.mobile}
-              onChange={handleChange}
-            />
-            {errors.mobile && (
-              <p className="text-red-500 text-xs italic">{errors.mobile}</p>
-            )}
-          </div>
-
-          {/* Designation */}
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="designation"
-            >
-              Designation
-            </label>
-            <select
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="designation"
-              name="designation"
-              value={formData.designation}
-              onChange={handleChange}
-            >
-              <option value="">Select</option>
-              <option value="HR">HR</option>
-              <option value="Manager">Manager</option>
-              <option value="Sales">Sales</option>
-            </select>
-          </div>
-
-          {/* Gender */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Gender
-            </label>
-            <div className="flex">
-              <label className="mr-4">
-                <input
-                  type="radio"
-                  name="gender"
-                  value="M"
-                  checked={formData.gender === "M"}
-                  onChange={handleChange}
-                />{" "}
-                Male
+      </div>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12">
+        <div className="mx-auto w-full max-w-sm">
+          <form className="space-y-2" onSubmit={handleSubmit}>
+            {/* Form fields */}
+            <div>
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Name
               </label>
-              <label>
-                <input
-                  type="radio"
-                  name="gender"
-                  value="F"
-                  checked={formData.gender === "F"}
-                  onChange={handleChange}
-                />{" "}
-                Female
-              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                value={formData.name}
+                onChange={handleChange}
+                className="block w-full rounded-md border-2 border-black p-2 text-black shadow-sm"
+              />
+              {errors.name && (
+                <p className="text-red-500 text-xs italic">{errors.name}</p>
+              )}
             </div>
-            {errors.gender && (
-              <p className="text-red-500 text-xs italic">{errors.gender}</p>
-            )}
-          </div>
-
-          {/* Course */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Course
-            </label>
-            <div className="flex">
-              <label className="mr-4">
-                <input
-                  type="checkbox"
-                  name="course"
-                  value="MCA"
-                  checked={formData.course.includes("MCA")}
-                  onChange={handleChange}
-                />{" "}
-                MCA
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Email
               </label>
-              <label className="mr-4">
-                <input
-                  type="checkbox"
-                  name="course"
-                  value="BCA"
-                  checked={formData.course.includes("BCA")}
-                  onChange={handleChange}
-                />{" "}
-                BCA
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="course"
-                  value="BSC"
-                  checked={formData.course.includes("BSC")}
-                  onChange={handleChange}
-                />{" "}
-                BSC
-              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                className="block w-full rounded-md border-2 border-black p-2 text-black shadow-sm"
+              />
+              {errors.email && (
+                <p className="text-red-500 text-xs italic">{errors.email}</p>
+              )}
             </div>
-            {errors.course && (
-              <p className="text-red-500 text-xs italic">{errors.course}</p>
+            <div>
+              <label
+                htmlFor="phone"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                phone
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="text"
+                required
+                value={formData.phone}
+                onChange={handleChange}
+                className="block w-full rounded-md border-2 border-black p-2 text-black shadow-sm"
+              />
+              {errors.phone && (
+                <p className="text-red-500 text-xs italic">{errors.phone}</p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="designation"
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                Designation
+              </label>
+              <select
+                id="designation"
+                name="designation"
+                value={formData.designation}
+                onChange={handleChange}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option value="">Select</option>
+                <option value="HR">HR</option>
+                <option value="Manager">Manager</option>
+                <option value="Sales">Sales</option>
+              </select>
+              {errors.designation && (
+                <p className="text-red-500 text-xs italic">
+                  {errors.designation}
+                </p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Gender
+              </label>
+              <div className="flex">
+                <label className="mr-4">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="M"
+                    checked={formData.gender === "M"}
+                    onChange={handleChange}
+                  />{" "}
+                  Male
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="F"
+                    checked={formData.gender === "F"}
+                    onChange={handleChange}
+                  />{" "}
+                  Female
+                </label>
+              </div>
+              {errors.gender && (
+                <p className="text-red-500 text-xs italic">{errors.gender}</p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+                Course
+              </label>
+              <div className="flex">
+                <label className="mr-4">
+                  <input
+                    type="checkbox"
+                    name="course"
+                    value="MCA"
+                    checked={formData.course.includes("MCA")}
+                    onChange={handleChange}
+                  />{" "}
+                  MCA
+                </label>
+                <label className="mr-4">
+                  <input
+                    type="checkbox"
+                    name="course"
+                    value="BCA"
+                    checked={formData.course.includes("BCA")}
+                    onChange={handleChange}
+                  />{" "}
+                  BCA
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    name="course"
+                    value="BSC"
+                    checked={formData.course.includes("BSC")}
+                    onChange={handleChange}
+                  />{" "}
+                  BSC
+                </label>
+              </div>
+              {errors.course && (
+                <p className="text-red-500 text-xs italic">{errors.course}</p>
+              )}
+            </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="image"
+              >
+                Image Upload
+              </label>
+              <input
+                id="image"
+                name="image"
+                type="file"
+                accept=".jpg, .png"
+                onChange={handleChange}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              {errors.image && (
+                <p className="text-red-500 text-xs italic">{errors.image}</p>
+              )}
+            </div>
+            <div className="flex items-center justify-between">
+              <button
+                type="submit"
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Create
+              </button>
+            </div>
+            {submitError && (
+              <p className="text-red-500 text-xs italic">{submitError}</p>
             )}
-          </div>
-
-          {/* Image Upload */}
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="image"
-            >
-              Image Upload
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="image"
-              type="file"
-              name="image"
-              accept=".jpg, .png"
-              onChange={handleChange}
-            />
-            {errors.image && (
-              <p className="text-red-500 text-xs italic">{errors.image}</p>
-            )}
-          </div>
-
-          {/* Submit Button */}
-          <div className="flex items-center justify-between">
-            <button
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );

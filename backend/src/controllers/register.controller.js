@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import { Admin } from "../models/admin.model.js";
 
 export const adminRegister = async (req, res) => {
@@ -18,14 +17,11 @@ export const adminRegister = async (req, res) => {
       return res.status(400).json({ message: "Admin already exists" });
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create a new admin instance with hashed password
+    // Directly use the plain text password without bcrypt
     const newAdmin = new Admin({
       username,
       email,
-      password: hashedPassword, // Store the hashed password
+      password, // Plain text password stored here
     });
 
     // Save the new admin to the database
@@ -38,7 +34,7 @@ export const adminRegister = async (req, res) => {
         id: savedAdmin._id,
         username: savedAdmin.username,
         email: savedAdmin.email,
-        password: savedAdmin.password,
+        password: savedAdmin.password, // Plain text password
       },
     });
   } catch (error) {

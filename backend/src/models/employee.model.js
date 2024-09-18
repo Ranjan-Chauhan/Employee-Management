@@ -5,7 +5,6 @@ const employeeSchema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
       index: true,
@@ -20,7 +19,6 @@ const employeeSchema = new Schema(
     phone: {
       type: String,
       required: true,
-      unique: true,
     },
     designation: {
       type: String,
@@ -36,7 +34,6 @@ const employeeSchema = new Schema(
     },
     profileImage: {
       type: String,
-      required: true,
     },
     createdate: {
       type: Date,

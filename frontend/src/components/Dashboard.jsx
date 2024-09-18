@@ -16,6 +16,7 @@
 //   }, [search, page, sortBy, order]);
 
 //   const fetchEmployees = async () => {
+
 //     try {
 //       const response = await axios.get("/employees", {
 //         params: {
@@ -121,10 +122,11 @@
 // export default Dashboard;
 
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import Navbar from "./navbar";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <Navbar />
@@ -136,12 +138,9 @@ const Dashboard = () => {
           Welcome To Admin Panel
         </p>
         <div className="flex justify-center items-center font-semibold text-lg ">
-          <Link
-            to="/CreateEmployee"
-            className="flex justify-center rounded-md bg-blue-200 text-black px-3 py-1.5 text-sm font-semibold shadow-sm"
-          >
+          <button onClick={() => navigate("/CreateEmployee")}>
             Create Employee
-          </Link>
+          </button>
           {/* <div className="flex justify-center rounded-md bg-orange-300 text-black px-3 py-1.5 text-sm font-semibold shadow-sm">
             Update Employee
           </div> */}

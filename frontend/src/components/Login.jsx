@@ -29,12 +29,10 @@ const Login = () => {
       });
 
       const data = await response.json();
-      const { admin } = data;
       if (response.ok) {
-        // setUser({ username: data.admin.username });
-        // localStorage.setItem("jwtToken", jwtToken);
-        localStorage.setItem("loggedInUser", admin.username);
-
+        // Store JWT in local storage
+        localStorage.setItem("jwtToken", data.jwtToken);
+        localStorage.setItem("loggedInUser", data.admin.username);
         navigate("/dashboard");
       } else {
         setMessage(data.message || "Invalid login details");

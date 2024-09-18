@@ -3,6 +3,13 @@ import { Employee } from "../models/employee.model.js";
 // Create Employee
 export const createEmployee = async (req, res) => {
   try {
+    const employeeData = req.body;
+    const uloadfile = req.file;
+    // If req.file exists, it should be handled separately
+    if (req.file) {
+      employeeData.profileImage = req.file.path; // assuming you use multer to upload files
+    }
+
     const newEmployee = new Employee(req.body);
     await newEmployee.save();
     res.status(201).json({
@@ -10,6 +17,7 @@ export const createEmployee = async (req, res) => {
       employee: newEmployee,
     });
   } catch (error) {
+    console.error("Error creating employee:", error);
     res.status(500).json({ message: "Error creating employee", error });
   }
 };
