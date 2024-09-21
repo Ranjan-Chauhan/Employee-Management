@@ -58,72 +58,10 @@ export const deleteEmployee = async (req, res) => {
   }
 };
 
-// Update Employee
-// export const updateEmployee = async (req, res) => {
-//   try {
-//     // Fetch the current employee details
-//     const employee = await Employee.findById(req.params.id);
-//     if (!employee) {
-//       return res.status(404).json({ message: "Employee not found" });
-//     }
-
-//     // Combine current courses with new ones from the request body
-//     const existingCourses = employee.course
-//       ? employee.course.split(",").map((c) => c.trim())
-//       : [];
-//     const newCourses = req.body.course
-//       ? req.body.course.split(",").map((c) => c.trim())
-//       : [];
-
-//     // Create a unique set of courses
-//     const updatedCourses = [...new Set([...existingCourses, ...newCourses])];
-
-//     // Update the employee with the combined courses
-//     const updatedEmployee = await Employee.findByIdAndUpdate(
-//       req.params.id,
-//       { ...req.body, course: updatedCourses.join(",") }, // Update course as a comma-separated string
-//       {
-//         new: true,
-//         runValidators: true,
-//       }
-//     );
-
-//     res.status(200).json({
-//       message: "Employee updated successfully",
-//       employee: updatedEmployee,
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: "Error updating employee", error });
-//   }
-// };
-
-// Update Employee
-// export const updateEmployee = async (req, res) => {
-//   try {
-//     const updatedEmployee = await Employee.findByIdAndUpdate(
-//       req.params.id,
-//       req.body,
-//       {
-//         new: true,
-//         runValidators: true,
-//       }
-//     );
-//     if (!updatedEmployee) {
-//       return res.status(404).json({ message: "Employee not found" });
-//     }
-//     res.status(200).json({
-//       message: "Employee updated successfully",
-//       employee: updatedEmployee,
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: "Error updating employee", error });
-//   }
-// };
-
+// update Employee
 export const updateEmployee = async (req, res) => {
   try {
     if (req.body.course) {
-      // Ensure that the course field is treated as a string
       req.body.course = req.body.course
         .split(",")
         .map((course) => course.trim())

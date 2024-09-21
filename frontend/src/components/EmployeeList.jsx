@@ -253,7 +253,7 @@ const EmployeeList = () => {
         setEmployees(employees.filter((employee) => employee._id !== id));
         setFilteredEmployees(
           filteredEmployees.filter((employee) => employee._id !== id)
-        ); // Update filtered list as well
+        );
       } else {
         setError("Failed to delete employee");
       }
@@ -269,10 +269,9 @@ const EmployeeList = () => {
       <div className="bg-yellow-300 text-black font-bold py-1.5 px-6 text-left">
         Employee List
       </div>
-      <div className="flex justify-between px-6 py-2 pt-6">
+      <div className="flex justify-between content-center items-center px-6 py-2 pt-6">
         <div className="flex items-center">
           <span>Total Count : {filteredEmployees.length}</span>
-          {/* Update the count */}
         </div>
         <button
           className="hover:bg-blue-400 text-black py-1.5 px-6 border font-semibold shadow-lg rounded justify-center items-center"
@@ -283,9 +282,9 @@ const EmployeeList = () => {
         <input
           type="text"
           placeholder="Search for the employee"
-          className="border border-gray-300 py-1 px-2 rounded hover:border-black "
+          className="border-2 border-gray-300 py-1 px-2 rounded hover:border-blue-500"
           value={searchQuery}
-          onChange={handleSearch} // Add the search handler
+          onChange={handleSearch}
         />
       </div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-7">
