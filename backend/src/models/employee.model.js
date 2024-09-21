@@ -17,7 +17,7 @@ const employeeSchema = new Schema(
       trim: true,
     },
     phone: {
-      type: String,
+      type: Number,
       required: true,
     },
     designation: {
@@ -29,7 +29,7 @@ const employeeSchema = new Schema(
       required: true,
     },
     course: {
-      type: String,
+      type: [],
       required: true,
     },
     profileImage: {

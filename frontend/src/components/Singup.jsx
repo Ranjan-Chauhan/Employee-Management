@@ -30,6 +30,7 @@ const Signup = () => {
       const result = await response.json();
       if (response.ok) {
         setMessage(result.message);
+        alert("Signup Successfully, please login !!");
         navigate("/Login");
       } else {
         setMessage(result.message || "Signup failed");
