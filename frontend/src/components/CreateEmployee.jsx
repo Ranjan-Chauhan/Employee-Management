@@ -10,7 +10,7 @@
 //     designation: "",
 //     gender: "",
 //     course: [],
-//     image: null,
+//     profileImage: "",
 //   });
 
 //   const [errors, setErrors] = useState({});
@@ -18,7 +18,6 @@
 //   const navigate = useNavigate();
 
 //   useEffect(() => {
-//     // Clear errors on component mount
 //     setErrors({});
 //     setSubmitError("");
 //   }, []);
@@ -45,6 +44,7 @@
 //       }));
 //     }
 //   };
+
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     setErrors({});
@@ -53,13 +53,12 @@
 //     let formErrors = {};
 //     if (!formData.name) formErrors.name = "Name is required";
 //     if (!formData.email) formErrors.email = "Email is required";
-//     if (!formData.phone) formErrors.phone = "phone is required";
+//     if (!formData.phone) formErrors.phone = "Phone is required";
 //     if (!formData.designation)
 //       formErrors.designation = "Designation is required";
 //     if (!formData.gender) formErrors.gender = "Gender is required";
 //     if (formData.course.length === 0)
 //       formErrors.course = "At least one course must be selected";
-//     // if (formData.image === null) formErrors.image = "Image is required";
 
 //     if (Object.keys(formErrors).length > 0) {
 //       setErrors(formErrors);
@@ -72,8 +71,8 @@
 //     formDataToSend.append("phone", formData.phone);
 //     formDataToSend.append("designation", formData.designation);
 //     formDataToSend.append("gender", formData.gender);
-//     formDataToSend.append("course", formData.course.join(","));
-//     formDataToSend.append("image", formData.image);
+//     formDataToSend.append("course", formData.course.join(",")); // Join array into comma-separated string
+//     formDataToSend.append("profileImage", formData.profileImage);
 
 //     const token = localStorage.getItem("jwtToken");
 //     try {
@@ -103,13 +102,12 @@
 //       <div className="bg-yellow-300 text-black font-bold py-1.5 px-6">
 //         Create Employee
 //       </div>
-//       <div className="flex justify-center items-center pt-9 ">
-//         {/* <div className="mx-auto w-full max-w-sm "> */}
+//       <div className="flex justify-center items-center pt-9">
 //         <form
 //           className="bg-white shadow-md rounded px-8 pb-5"
 //           onSubmit={handleSubmit}
 //         >
-//           {/* Form fields */}
+//           {/* Name Input */}
 //           <div className="mb-2 pt-4">
 //             <label
 //               htmlFor="name"
@@ -124,7 +122,6 @@
 //               required
 //               value={formData.name}
 //               onChange={handleChange}
-//               // className="block w-full rounded-md border p-2 text-black shadow-sm"
 //               className={`shadow appearance-none border ${
 //                 errors.name ? "border-red-500" : ""
 //               } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -133,13 +130,12 @@
 //               <p className="text-red-500 text-xs italic">{errors.name}</p>
 //             )}
 //           </div>
+
+//           {/* Email Input */}
 //           <div className="mb-2">
 //             <label
 //               htmlFor="email"
 //               className="block text-gray-700 text-sm font-semibold mb-1"
-//               // className={`shadow appearance-none border ${
-//               //   errors.name ? "border-red-500" : ""
-//               // } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
 //             >
 //               Email
 //             </label>
@@ -150,15 +146,16 @@
 //               required
 //               value={formData.email}
 //               onChange={handleChange}
-//               // className="block w-full rounded-md border p-2 text-black shadow-sm"
 //               className={`shadow appearance-none border ${
-//                 errors.name ? "border-red-500" : ""
+//                 errors.email ? "border-red-500" : ""
 //               } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
 //             />
 //             {errors.email && (
 //               <p className="text-red-500 text-xs italic">{errors.email}</p>
 //             )}
 //           </div>
+
+//           {/* Phone Input */}
 //           <div className="mb-2">
 //             <label
 //               htmlFor="phone"
@@ -173,15 +170,16 @@
 //               required
 //               value={formData.phone}
 //               onChange={handleChange}
-//               // className="block w-full rounded-md border p-2 text-black shadow-sm"
 //               className={`shadow appearance-none border ${
-//                 errors.name ? "border-red-500" : ""
+//                 errors.phone ? "border-red-500" : ""
 //               } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
 //             />
 //             {errors.phone && (
 //               <p className="text-red-500 text-xs italic">{errors.phone}</p>
 //             )}
 //           </div>
+
+//           {/* Designation Dropdown */}
 //           <div className="mb-2">
 //             <label
 //               htmlFor="designation"
@@ -207,6 +205,8 @@
 //               </p>
 //             )}
 //           </div>
+
+//           {/* Gender Radio Buttons */}
 //           <div className="mb-2">
 //             <label className="block text-gray-700 text-sm font-bold mb-1">
 //               Gender
@@ -216,8 +216,8 @@
 //                 <input
 //                   type="radio"
 //                   name="gender"
-//                   value="M"
-//                   checked={formData.gender === "M"}
+//                   value="Male"
+//                   checked={formData.gender === "Male"}
 //                   onChange={handleChange}
 //                 />{" "}
 //                 Male
@@ -226,8 +226,8 @@
 //                 <input
 //                   type="radio"
 //                   name="gender"
-//                   value="F"
-//                   checked={formData.gender === "F"}
+//                   value="Female"
+//                   checked={formData.gender === "Female"}
 //                   onChange={handleChange}
 //                 />{" "}
 //                 Female
@@ -237,6 +237,8 @@
 //               <p className="text-red-500 text-xs italic">{errors.gender}</p>
 //             )}
 //           </div>
+
+//           {/* Course Checkboxes */}
 //           <div className="mb-2">
 //             <label className="block text-gray-700 text-sm font-bold mb-1">
 //               Course
@@ -246,7 +248,7 @@
 //                 <input
 //                   type="checkbox"
 //                   name="course"
-//                   value="MCA"
+//                   value="B.Tech"
 //                   checked={formData.course.includes("MCA")}
 //                   onChange={handleChange}
 //                 />{" "}
@@ -277,46 +279,45 @@
 //               <p className="text-red-500 text-xs italic">{errors.course}</p>
 //             )}
 //           </div>
+
+//           {/* profileImage File Input */}
 //           <div className="mb-2">
 //             <label
+//               htmlFor="profileImage"
 //               className="block text-gray-700 text-sm font-bold mb-1"
-//               htmlFor="image"
 //             >
-//               Image Upload
+//               Image
 //             </label>
 //             <input
-//               id="image"
-//               name="image"
+//               id="profileImage"
+//               name="profileImage"
 //               type="file"
-//               accept=".jpg, .png"
+//               accept=".jpeg,.png"
 //               onChange={handleChange}
 //               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 //             />
-//             {errors.image && (
-//               <p className="text-red-500 text-xs italic">{errors.image}</p>
-//             )}
 //           </div>
-//           <div className="flex items-center justify-between">
+
+//           {/* Submit Button */}
+//           <div className="mb-2">
 //             <button
 //               type="submit"
-//               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+//               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 //             >
 //               Create
 //             </button>
 //           </div>
+
 //           {submitError && (
 //             <p className="text-red-500 text-xs italic">{submitError}</p>
 //           )}
 //         </form>
-//         {/* </div> */}
 //       </div>
 //     </div>
 //   );
 // };
 
 // export default CreateEmployee;
-
-/*...........................................................................................*/
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -329,12 +330,13 @@ const CreateEmployee = () => {
     phone: "",
     designation: "",
     gender: "",
-    course: [], // array for handling multiple checkboxes
-    image: null,
+    course: [],
+    profileImage: "",
   });
 
   const [errors, setErrors] = useState({});
   const [submitError, setSubmitError] = useState("");
+  const [loading, setLoading] = useState(false); // Add loading state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -369,6 +371,7 @@ const CreateEmployee = () => {
     e.preventDefault();
     setErrors({});
     setSubmitError("");
+    setLoading(true); // Set loading to true when starting submission
 
     let formErrors = {};
     if (!formData.name) formErrors.name = "Name is required";
@@ -382,6 +385,7 @@ const CreateEmployee = () => {
 
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
+      setLoading(false); // Set loading to false on validation error
       return;
     }
 
@@ -392,7 +396,7 @@ const CreateEmployee = () => {
     formDataToSend.append("designation", formData.designation);
     formDataToSend.append("gender", formData.gender);
     formDataToSend.append("course", formData.course.join(",")); // Join array into comma-separated string
-    formDataToSend.append("image", formData.image);
+    formDataToSend.append("profileImage", formData.profileImage);
 
     const token = localStorage.getItem("jwtToken");
     try {
@@ -413,6 +417,8 @@ const CreateEmployee = () => {
     } catch (error) {
       console.error("Error during employee creation:", error);
       setSubmitError("Server error");
+    } finally {
+      setLoading(false); // Set loading to false after request completes
     }
   };
 
@@ -442,6 +448,7 @@ const CreateEmployee = () => {
               required
               value={formData.name}
               onChange={handleChange}
+              disabled={loading} // Disable input while loading
               className={`shadow appearance-none border ${
                 errors.name ? "border-red-500" : ""
               } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -466,6 +473,7 @@ const CreateEmployee = () => {
               required
               value={formData.email}
               onChange={handleChange}
+              disabled={loading} // Disable input while loading
               className={`shadow appearance-none border ${
                 errors.email ? "border-red-500" : ""
               } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -490,6 +498,7 @@ const CreateEmployee = () => {
               required
               value={formData.phone}
               onChange={handleChange}
+              disabled={loading} // Disable input while loading
               className={`shadow appearance-none border ${
                 errors.phone ? "border-red-500" : ""
               } rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
@@ -512,6 +521,7 @@ const CreateEmployee = () => {
               name="designation"
               value={formData.designation}
               onChange={handleChange}
+              disabled={loading} // Disable dropdown while loading
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
               <option value="">Select</option>
@@ -536,9 +546,10 @@ const CreateEmployee = () => {
                 <input
                   type="radio"
                   name="gender"
-                  value="M"
-                  checked={formData.gender === "M"}
+                  value="Male"
+                  checked={formData.gender === "Male"}
                   onChange={handleChange}
+                  disabled={loading} // Disable radio buttons while loading
                 />{" "}
                 Male
               </label>
@@ -546,9 +557,10 @@ const CreateEmployee = () => {
                 <input
                   type="radio"
                   name="gender"
-                  value="F"
-                  checked={formData.gender === "F"}
+                  value="Female"
+                  checked={formData.gender === "Female"}
                   onChange={handleChange}
+                  disabled={loading} // Disable radio buttons while loading
                 />{" "}
                 Female
               </label>
@@ -568,11 +580,12 @@ const CreateEmployee = () => {
                 <input
                   type="checkbox"
                   name="course"
-                  value="MCA"
-                  checked={formData.course.includes("MCA")}
+                  value="B.Tech"
+                  checked={formData.course.includes("B.Tech")}
                   onChange={handleChange}
+                  disabled={loading} // Disable checkboxes while loading
                 />{" "}
-                MCA
+                B.Tech
               </label>
               <label className="mr-4">
                 <input
@@ -581,6 +594,7 @@ const CreateEmployee = () => {
                   value="BCA"
                   checked={formData.course.includes("BCA")}
                   onChange={handleChange}
+                  disabled={loading} // Disable checkboxes while loading
                 />{" "}
                 BCA
               </label>
@@ -588,11 +602,12 @@ const CreateEmployee = () => {
                 <input
                   type="checkbox"
                   name="course"
-                  value="BSC"
-                  checked={formData.course.includes("BSC")}
+                  value="MCA"
+                  checked={formData.course.includes("MCA")}
                   onChange={handleChange}
+                  disabled={loading} // Disable checkboxes while loading
                 />{" "}
-                BSC
+                MCA
               </label>
             </div>
             {errors.course && (
@@ -600,33 +615,38 @@ const CreateEmployee = () => {
             )}
           </div>
 
-          {/* Image File Input */}
+          {/* Profile Image Input */}
           <div className="mb-2">
             <label
-              htmlFor="image"
+              htmlFor="profileImage"
               className="block text-gray-700 text-sm font-bold mb-1"
             >
-              Image
+              Profile Image
             </label>
             <input
-              id="image"
-              name="image"
+              id="profileImage"
+              name="profileImage"
               type="file"
+              accept=".jpeg,.png"
               onChange={handleChange}
+              disabled={loading} // Disable input while loading
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>
 
           {/* Submit Button */}
-          <div className="mb-2">
+          <div className="flex items-center justify-between">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              disabled={loading} // Disable button while loading
+              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
-              Create
+              {loading ? "Creating..." : "Create Employee"}{" "}
+              {/* Change button text based on loading state */}
             </button>
           </div>
-
           {submitError && (
             <p className="text-red-500 text-xs italic">{submitError}</p>
           )}

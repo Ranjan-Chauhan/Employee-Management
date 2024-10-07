@@ -29,7 +29,7 @@ const employeeSchema = new Schema(
       required: true,
     },
     course: {
-      type: [],
+      type: String,
       required: true,
     },
     profileImage: {

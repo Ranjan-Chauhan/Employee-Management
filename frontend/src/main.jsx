@@ -4,8 +4,7 @@ import {
   createBrowserRouter,
   RouterProvider,
   Navigate,
-} from "react-router-dom"; // Import Navigate
-import App from "./App.jsx";
+} from "react-router-dom";
 import "./index.css";
 import Dashboard from "./components/Dashboard.jsx";
 import Layout from "./Layout.jsx";
