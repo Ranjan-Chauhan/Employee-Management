@@ -43,7 +43,7 @@ const Signup = () => {
 
   return (
     <div>
-      <div className="flex p-2 px-10  bg-blue-300 ">
+      <div className="flex p-2 px-10 bg-blue-300 ">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRln9L-Mr039zwxerF3U9Rrw1Z16abkfSERyA&s"
           className="w-14 h-14 rounded-full"
@@ -54,83 +54,86 @@ const Signup = () => {
         Signup Page
       </div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12">
-        <div className="mx-auto w-full max-w-sm">
-          <form className="space-y-2" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                User Name
-              </label>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                required
-                value={formData.username}
-                onChange={handleChange}
-                className="block w-full rounded-md border-2 border-black p-2 text-black shadow-sm"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
-                className="block w-full rounded-md border-2 border-black p-2 text-black shadow-sm"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                value={formData.password}
-                onChange={handleChange}
-                className="block w-full rounded-md border-2 border-black p-2 text-black shadow-sm"
-              />
-            </div>
-            <div className="space-y-3">
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-green-500 px-3 py-1.5 text-lg font-semibold text-white shadow-sm"
-              >
-                Singup
-              </button>
-            </div>
-          </form>
+        <div className="mx-auto w-full max-w-sm flex justify-center items-center rounded shadow-lg p-10">
+          <div>
+            <form className="space-y-1.5 w-80" onSubmit={handleSubmit}>
+              <div>
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Name
+                </label>
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  required
+                  value={formData.username}
+                  onChange={handleChange}
+                  className="block w-full rounded border p-2 text-black shadow-md"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="block w-full rounded border p-2 text-black shadow-md"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Password
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="block w-full rounded border p-2 text-black shadow-md"
+                />
+              </div>
+              <div className="pt-4 flex justify-center items-center">
+                <button
+                  type="submit"
+                  className="flex w-52 justify-center rounded-md bg-green-500 px-3 py-1.5 text-lg font-semibold text-white shadow-md"
+                >
+                  Singup
+                </button>
+              </div>
+            </form>
 
-          {message && (
-            <p className="mt-4 text-center text-sm text-gray-500">{message}</p>
-          )}
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Already have an Account?{" "}
-            <Link
-              to="/login"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Please Login
-            </Link>
-          </p>
+            {message && (
+              <p className="mt-4 text-center text-sm text-gray-500">
+                {message}
+              </p>
+            )}
+          </div>
         </div>
+        <p className="mt-5 text-center text-sm text-gray-500">
+          Already have an Account?{" "}
+          <Link
+            to="/login"
+            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+          >
+            Please Login
+          </Link>
+        </p>
       </div>
     </div>
   );

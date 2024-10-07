@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 const EmployeeList = () => {
   const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
-  const [filteredEmployees, setFilteredEmployees] = useState([]); // To store filtered employees
-  const [searchQuery, setSearchQuery] = useState(""); // To store search input
+  const [filteredEmployees, setFilteredEmployees] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState("");
   const token = localStorage.getItem("jwtToken");
 
@@ -89,8 +89,8 @@ const EmployeeList = () => {
         Employee List
       </div>
       <div className="flex justify-between content-center items-center px-6 py-2 pt-6">
-        <div className="flex items-center">
-          <span>Total Count : {filteredEmployees.length}</span>
+        <div className="flex items-center shadow-lg py-1.5 px-6">
+          <span>Total Employees : {filteredEmployees.length}</span>
         </div>
         <button
           className="hover:bg-blue-400 text-black py-1.5 px-6 border font-semibold shadow-lg rounded justify-center items-center"
@@ -98,13 +98,18 @@ const EmployeeList = () => {
         >
           Create Employee
         </button>
-        <input
-          type="text"
-          placeholder="Search for the employee"
-          className="border-2 border-gray-300 py-1 px-2 rounded hover:border-blue-500"
-          value={searchQuery}
-          onChange={handleSearch}
-        />
+        <div className="flex justify-center items-center space-x-2">
+          <label htmlFor="search" className="block text-gray-700 font-semibold">
+            Search
+          </label>
+          <input
+            type="text"
+            placeholder="Search for the employee"
+            className="border shadow-xl py-1.5 px-2 rounded hover:border-blue-500"
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+        </div>
       </div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-7">
         <div className="">

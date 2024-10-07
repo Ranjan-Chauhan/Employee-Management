@@ -19,7 +19,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="bg-blue-300 px-6 py-1 flex justify-between items-center">
+    <header className="bg-blue-300 px-6 py-2 flex justify-between items-center">
       <div className="flex pl-5">
         <Link to="/Dashboard" className="flex items-center font-semibold ">
           <img

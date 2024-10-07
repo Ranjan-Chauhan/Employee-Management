@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <>
       <div>
-        <div className="flex p-2 px-9  bg-blue-300 ">
+        <div className="flex p-2 px-9 bg-blue-300 ">
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRln9L-Mr039zwxerF3U9Rrw1Z16abkfSERyA&s"
             className="w-14 h-14 rounded-full"
@@ -57,14 +57,12 @@ const Login = () => {
           Login Page
         </div>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12">
-          <div className="mx-auto w-full max-w-sm">
-            <form className="space-y-2" onSubmit={handleSubmit}>
-              {" "}
-              {/* <-- Add onSubmit handler */}
+          <div className="mx-auto w-full max-w-sm shadow-lg rounded p-10">
+            <form className="space-y-1.5 w-80" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 "
                 >
                   Email
                 </label>
@@ -74,9 +72,9 @@ const Login = () => {
                     name="email"
                     type="email"
                     required
-                    value={formData.email} // Bind value to formData state
-                    onChange={handleChange} // Add onChange handler
-                    className="block w-full rounded-md border-2 border-black p-2 text-black shadow-sm"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="block w-full rounded border p-2 text-black shadow-md"
                   />
                 </div>
               </div>
@@ -95,38 +93,37 @@ const Login = () => {
                     name="password"
                     type="password"
                     required
-                    value={formData.password} // Bind value to formData state
-                    onChange={handleChange} // Add onChange handler
-                    className="block w-full rounded-md border-2 border-black p-2 text-black shadow-sm"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="block w-full rounded border p-2 text-black shadow-md"
                   />
                 </div>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-3 pt-4 flex justify-center items-center ">
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md bg-green-500 px-3 py-1.5 text-lg font-semibold text-white shadow-sm"
+                  className="flex w-52 justify-center rounded-md bg-green-500 px-3 py-1.5 text-lg font-semibold text-white shadow-md"
                 >
                   Login
                 </button>
               </div>
             </form>
 
-            {message && ( // Display message if exists
+            {message && (
               <p className="mt-4 text-center text-sm text-gray-500">
                 {message}
               </p>
             )}
-
-            <p className="mt-10 text-center text-sm text-gray-500">
-              Don't have an account?{" "}
-              <Link
-                to="/Singup"
-                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-              >
-                Please Sign Up
-              </Link>
-            </p>
           </div>
+          <p className="mt-5 text-center text-sm text-gray-500">
+            Don't have an account?{" "}
+            <Link
+              to="/Singup"
+              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            >
+              Please Sign Up
+            </Link>
+          </p>
         </div>
       </div>
     </>
