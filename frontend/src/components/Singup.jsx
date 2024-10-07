@@ -43,8 +43,14 @@ const Signup = () => {
 
   return (
     <div>
-      {/* <Navbar /> */}
-      <div className="bg-yellow-300 text-black font-bold p-2 mb-4">
+      <div className="flex p-2 px-10  bg-blue-300 ">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRln9L-Mr039zwxerF3U9Rrw1Z16abkfSERyA&s"
+          className="w-14 h-14 rounded-full"
+          alt="Logo"
+        />
+      </div>
+      <div className="bg-yellow-300 text-black font-bold p-2 px-6 mb-4">
         Signup Page
       </div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12">
