@@ -43,7 +43,7 @@ const Signup = () => {
 
   return (
     <div>
-      <div className="flex p-2 px-10 bg-blue-300 ">
+      <div className="flex p-2 px-9 bg-blue-300 ">
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRln9L-Mr039zwxerF3U9Rrw1Z16abkfSERyA&s"
           className="w-14 h-14 rounded-full"
