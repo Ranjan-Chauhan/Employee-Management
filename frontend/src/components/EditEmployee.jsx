@@ -593,7 +593,7 @@ const EditEmployee = () => {
               <img
                 src={imagePreview}
                 alt="Profile Preview"
-                className="w-20 h-20 object-cover rounded m-2"
+                className="w-20 h-20 object-cover rounded m-2  border-2 shadow-md hover:border-purple-600 "
               />
             )}
           </div>
