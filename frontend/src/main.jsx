@@ -14,7 +14,7 @@ import Login from "./components/Login.jsx";
 import EditEmployee from "./components/EditEmployee.jsx";
 import RefrshHandler from "../RefreshHandler.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
-import Signup from "./components/Singup.jsx";
+import Signup from "./components/Signup.jsx";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -69,7 +69,7 @@ function App() {
           element: <Login />,
         },
         {
-          path: "Singup",
+          path: "Signup",
           element: <Signup />,
         },
       ],
