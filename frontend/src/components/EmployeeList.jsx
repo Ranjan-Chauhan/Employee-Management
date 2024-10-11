@@ -89,7 +89,7 @@ const EmployeeList = () => {
         Employee List
       </div>
       <div className="flex justify-between content-center items-center px-6 py-2 pt-6">
-        <div className="flex items-center shadow-lg py-1.5 px-6">
+        <div className="flex items-center rounded shadow-lg py-1.5 px-6">
           <span>Total Employees : {filteredEmployees.length}</span>
         </div>
         <button
