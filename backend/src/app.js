@@ -7,11 +7,20 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import signupRoutes from "./routes/admin.routes.js";
 import loginRoutes from "./routes/admin.routes.js";
+import courseRoutes from "./routes/course.routes.js";
 // import { createAdminAccount } from "./scripts/admin.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use("/temp", express.static("public/temp"));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 app.use(
   cors({
@@ -32,6 +41,7 @@ app.use(bodyParser.json());
 app.use("/api/admin", signupRoutes);
 app.use("/api/admin", loginRoutes);
 app.use("/api/employees", employeeRoutes);
+app.use("/api/courses", courseRoutes);
 
 // Handle unknown routes
 app.use((req, res, next) => {

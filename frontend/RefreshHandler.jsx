@@ -14,7 +14,7 @@ function RefrshHandler({ setIsAuthenticated }) {
         location.pathname === "/login" ||
         location.pathname === "/signup"
       ) {
-        navigate("/Dashboard", { replace: false });
+        navigate("/Dashboard", { replace: true });
       }
     }
   }, [location, navigate, setIsAuthenticated]);

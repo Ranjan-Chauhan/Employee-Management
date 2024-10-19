@@ -42,6 +42,12 @@ const Navbar = () => {
           >
             Employee List
           </Link>
+          <Link
+            to="/Mastercourse"
+            className="hover:underline hover:text-pink-600 font-semibold"
+          >
+            Course List
+          </Link>
         </div>
       </div>
       <div className="flex space-x-16 items-center pr-10">

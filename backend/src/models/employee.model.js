@@ -28,10 +28,13 @@ const employeeSchema = new Schema(
       type: String,
       required: true,
     },
-    course: {
-      type: String,
-      required: true,
-    },
+    course: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Course",
+        required: true,
+      },
+    ],
     profileImage: {
       type: String,
     },
