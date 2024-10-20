@@ -357,23 +357,28 @@ const EmployeeList = () => {
         Employee List
       </div>
       <div className="flex justify-between content-center items-center px-6 py-2 pt-6">
-        <div className="flex items-center rounded shadow-lg py-1 px-6 hover:bg-lime-300">
-          <span>Total Employees: {filteredEmployees.length}</span>
+        <div className="flex items-center rounded text-sm font-semibold shadow-lg py-1 px-6 hover:font-bold hover:bg-lime-300">
+          <span className="font-semibold text-sm hover:font-bold">
+            Total Employees: {filteredEmployees.length}
+          </span>
         </div>
         <button
-          className="hover:bg-blue-400 text-black py-1 px-6 border font-semibold shadow-lg rounded justify-center items-center"
+          className="hover:bg-blue-400 text-black py-1 px-6 border font-semibold text-sm shadow-lg rounded justify-center items-center"
           onClick={() => navigate("/CreateEmployee")}
         >
           Create Employee
         </button>
         <div className="flex justify-center items-center space-x-2">
-          <label htmlFor="search" className="block text-gray-700 font-semibold">
+          <label
+            htmlFor="search"
+            className="block text-gray-700 text-sm font-semibold"
+          >
             Search
           </label>
           <input
             type="text"
-            placeholder="Search for the employee"
-            className="border hover:border-2 shadow-xl py-1 px-2 rounded hover:border-blue-700"
+            placeholder="search for the employee"
+            className="border hover:border-2 shadow-xl py-1 px-2 text-sm text-black rounded hover:border-blue-700"
             value={searchQuery}
             onChange={handleSearch}
           />
