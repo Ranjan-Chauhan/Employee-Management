@@ -31,33 +31,33 @@ const Navbar = () => {
         <div className="flex space-x-16 items-center px-10">
           <Link
             to="/Dashboard"
-            className="hover:underline hover:text-pink-600 font-semibold"
+            className="hover:underline hover:text-pink-600 hover:font-bold font-semibold"
           >
             Home
           </Link>
 
           <Link
             to="/EmployeeList"
-            className="hover:underline hover:text-pink-600 font-semibold"
+            className="hover:underline hover:text-pink-600 hover:font-bold  font-semibold"
           >
             Employee List
           </Link>
           <Link
             to="/Mastercourse"
-            className="hover:underline hover:text-pink-600 font-semibold"
+            className="hover:underline hover:text-pink-600 hover:font-bold   font-semibold"
           >
             Course List
           </Link>
         </div>
       </div>
       <div className="flex space-x-16 items-center pr-10">
-        <span className="font-semibold py-1 px-3 rounded shadow-l hover:text-pink-600">
+        <span className="font-semibold py-1 px-3 rounded shadow-l hover:text-pink-600 hover:font-bold ">
           Hello - {loggedInUser ? loggedInUser.toUpperCase() : "Not Logged In"}
         </span>
         <button onClick={handleLogout}>
           <Link
             to="/login"
-            className="hover:bg-red-500 hover:text-white font-semibold rounded px-3 py-1"
+            className="hover:bg-red-600 hover:text-white font-semibold rounded px-4 py-1"
           >
             LOG OUT
           </Link>

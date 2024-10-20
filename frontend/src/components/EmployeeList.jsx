@@ -357,11 +357,11 @@ const EmployeeList = () => {
         Employee List
       </div>
       <div className="flex justify-between content-center items-center px-6 py-2 pt-6">
-        <div className="flex items-center rounded shadow-lg py-1.5 px-6">
+        <div className="flex items-center rounded shadow-lg py-1 px-6 hover:bg-lime-300">
           <span>Total Employees: {filteredEmployees.length}</span>
         </div>
         <button
-          className="hover:bg-blue-400 text-black py-1.5 px-6 border font-semibold shadow-lg rounded justify-center items-center"
+          className="hover:bg-blue-400 text-black py-1 px-6 border font-semibold shadow-lg rounded justify-center items-center"
           onClick={() => navigate("/CreateEmployee")}
         >
           Create Employee
@@ -373,7 +373,7 @@ const EmployeeList = () => {
           <input
             type="text"
             placeholder="Search for the employee"
-            className="border shadow-xl py-1.5 px-2 rounded hover:border-blue-500"
+            className="border hover:border-2 shadow-xl py-1 px-2 rounded hover:border-blue-700"
             value={searchQuery}
             onChange={handleSearch}
           />
@@ -431,7 +431,7 @@ const EmployeeList = () => {
                     />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {employee.name}
+                    {employee.name.toUpperCase()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {employee.email}

@@ -1,35 +1,37 @@
-// import { upload } from "../middlewares/multer.middleware.js";
-// // import { Employee } from "../models/employee.model.js";
-// // import { uploadOnCloudinary } from "../utils/cloudinary.js";
+/*
+import { upload } from "../middlewares/multer.middleware.js";
+import { Employee } from "../models/employee.model.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
-// // // Create Employee
-// // export const createEmployee = async (req, res) => {
-// //   try {
-// //     // console.log(req?.body);
-// //     const uploadfile = req.file;
-// //     const profileImageLocalPath = req.file?.path;
+// Create Employee
+export const createEmployee = async (req, res) => {
+  try {
+    // console.log(req?.body);
+    const uploadfile = req.file;
+    const profileImageLocalPath = req.file?.path;
 
-// //     console.log(profileImageLocalPath);
-// //     const response = await uploadOnCloudinary(profileImageLocalPath);
-// //     const profileImage = profileImageLocalPath.url;
-// //     // console.log(profileImage);
+    console.log(profileImageLocalPath);
+    const response = await uploadOnCloudinary(profileImageLocalPath);
+    const profileImage = profileImageLocalPath.url;
+    // console.log(profileImage);
 
-// //     // const newEmployee = new Employee(req.body);
-// //     const newEmployee = new Employee({
-// //       ...req.body,
-// //       profileImage,
-// //     });
+    // const newEmployee = new Employee(req.body);
+    const newEmployee = new Employee({
+      ...req.body,
+      profileImage,
+    });
 
-// //     await newEmployee.save();
-// //     res.status(201).json({
-// //       message: "Employee created successfully",
-// //       employee: newEmployee,
-// //     });
-// //   } catch (error) {
-// //     console.error("Error creating employee:", error);
-// //     res.status(500).json({ message: "Error creating employee", error });
-// //   }
-// // };
+    await newEmployee.save();
+    res.status(201).json({
+      message: "Employee created successfully",
+      employee: newEmployee,
+    });
+  } catch (error) {
+    console.error("Error creating employee:", error);
+    res.status(500).json({ message: "Error creating employee", error });
+  }
+};
+*/
 import mongoose from "mongoose";
 import { Employee } from "../models/employee.model.js";
 import { Course } from "../models/course.model.js";
@@ -142,132 +144,29 @@ export const deleteEmployee = async (req, res) => {
   }
 };
 
-// // update Employee
-// export const updateEmployee = async (req, res) => {
-//   try {
-//     // if (req.body.course) {
-//     //   req.body.course = req.body.course
-//     //     .split(",")
-//     //     .map((course) => course.trim())
-//     //     .join(",");
-//     // }
-
-//     const { body, file } = req;
-//     // const profileImageLocalPath = req.file?.path;
-//     // const response = await uploadOnCloudinary(profileImageLocalPath);
-//     // const profileImage = response.url;
-
-//     if (file) {
-//       body.profileImage = file.path;
-//     }
-
-//     // if (Array.isArray(req.body.course)) {
-//     //   req.body.course = req.body.course;
-//     // }
-
-//     // Find and update the employee
-//     const updatedEmployee = await Employee.findByIdAndUpdate(
-//       req.params.id,
-//       {
-//         $set: {
-//           ...req.body, // Replace all fields with the incoming data
-//           course: req.body.course, // Ensure courses are replaced
-//         },
-//       },
-//       {
-//         new: true,
-//         runValidators: true,
-//       }
-//     );
-
-//     if (!updatedEmployee) {
-//       return res.status(404).json({ message: "Employee not found" });
-//     }
-
-//     res.status(200).json({
-//       message: "Employee updated successfully",
-//       employee: updatedEmployee,
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: "Error updating employee", error });
-//   }
-// };
-
-/*................................*/
 // Update employee details
-// export const updateEmployee = async (req, res) => {
-//   try {
-//     const { body, file } = req;
-
-//     let cloudinaryImageUrl = null;
-
-//     // If a file is uploaded, upload it to Cloudinary
-//     if (file) {
-//       const result = await uploadOnCloudinary(file.path);
-
-//       if (result) {
-//         cloudinaryImageUrl = result.secure_url; // Cloudinary URL for the uploaded image
-//       } else {
-//         return res.status(500).json({ message: "Failed to upload image" });
-//       }
-//     }
-
-//     // Update the employee data
-//     const updatedData = {
-//       ...body,
-//       ...(cloudinaryImageUrl && { profileImage: cloudinaryImageUrl }), // Only add profileImage if it's available
-//     };
-
-//     const updatedEmployee = await Employee.findByIdAndUpdate(
-//       req.params.id,
-//       { $set: updatedData },
-//       { new: true, runValidators: true }
-//     );
-
-//     if (!updatedEmployee) {
-//       return res.status(404).json({ message: "Employee not found" });
-//     }
-
-//     res.status(200).json({
-//       message: "Employee updated successfully",
-//       employee: updatedEmployee,
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: "Error updating employee", error });
-//   }
-// };
-
 export const updateEmployee = async (req, res) => {
   try {
     const { body, file } = req;
 
-    let localImagePath = null;
+    // If a file is uploaded, save it to public/temp
+    let profileImage = body.profileImage; // Existing image URL (if no new image is uploaded)
 
-    // If a file is uploaded, save it to the public/temp folder
     if (file) {
-      const uploadFolderPath = path.join(__dirname, "../public/temp");
-
-      // Create the folder if it doesn't exist
-      if (!fs.existsSync(uploadFolderPath)) {
-        fs.mkdirSync(uploadFolderPath, { recursive: true });
-      }
-
-      // Generate a unique file name for the uploaded image
-      const fileName = `${Date.now()}_${file.originalname}`;
-      const filePath = path.join(uploadFolderPath, fileName);
-
-      // Move the uploaded file to the public/temp folder
-      fs.renameSync(file.path, filePath);
-
-      // Save the local path for use in the employee document
-      localImagePath = `/temp/${fileName}`;
+      profileImage = file.filename; // Use the filename generated by Multer
     }
 
-    // Update the employee data, ensuring course is an ObjectId
+    // Handle course data: Ensure it's an array of ObjectId references
+    let courses = [];
+    if (body.course) {
+      courses = body.course.split(","); // Assuming course comes as comma-separated IDs from the frontend
+    }
+
+    // Update the employee data
     const updatedData = {
       ...body,
-      course: body.course, // Ensure this is an ObjectId
-      ...(localImagePath && { profileImage: localImagePath }),
+      profileImage, // Image is either the new file or existing one
+      course: courses, // Store course IDs as an array
     };
 
     const updatedEmployee = await Employee.findByIdAndUpdate(
@@ -285,6 +184,7 @@ export const updateEmployee = async (req, res) => {
       employee: updatedEmployee,
     });
   } catch (error) {
+    console.error("Error updating employee:", error);
     res.status(500).json({ message: "Error updating employee", error });
   }
 };
