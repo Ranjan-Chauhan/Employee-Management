@@ -42,21 +42,6 @@ export const updateCourse = async (req, res) => {
   }
 };
 
-// // Delete a course
-// export const deleteCourse = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const deletedCourse = await Course.findByIdAndDelete(id);
-//     if (!deletedCourse)
-//       return res
-//         .status(404)
-//         .json({ success: false, message: "Course not found" });
-//     res.status(200).json({ success: true, message: "Course deleted" });
-//   } catch (error) {
-//     res.status(500).json({ success: false, error: error.message });
-//   }
-// };
-
 // Delete a course and remove references from employees
 export const deleteCourse = async (req, res) => {
   try {

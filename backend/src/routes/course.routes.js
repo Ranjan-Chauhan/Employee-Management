@@ -8,9 +8,9 @@ import {
 
 const router = express.Router();
 
-router.post("/", createCourse); // Create new course
-router.get("/", getCourses); // Get all courses
-router.put("/:id", updateCourse); // Update a course by ID
-router.delete("/:id", deleteCourse); // Delete a course by ID
+router.post("/", createCourse);
+router.get("/", getCourses);
+router.put("/:id", updateCourse);
+router.delete("/:id", deleteCourse);
 
 export default router;

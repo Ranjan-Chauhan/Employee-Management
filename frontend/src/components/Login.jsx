@@ -37,7 +37,7 @@ const Login = () => {
         setMessage(data.message || "Invalid login details");
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      // console.error("Error during login:", error);
       setMessage("Server error. Please try again later.");
     }
   };

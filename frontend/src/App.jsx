@@ -1,13 +1,13 @@
-import { useState } from "react";
+// import { useState } from "react";
 import Navbar from "./components/Navbar";
-import CreateEmployee from "./components/CreateEmployee";
-import Login from "./components/Login";
+// import CreateEmployee from "./components/CreateEmployee";
+// import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
-import EmployeeList from "./components/EmployeeList";
+// import EmployeeList from "./components/EmployeeList";
 // import { UserProvider } from "./context/UserContext";
 
 function App() {
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
   return (
     <>

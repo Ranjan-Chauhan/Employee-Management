@@ -2,10 +2,10 @@ import multer from "multer";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./public/temp"); // Save in public/temp
+    cb(null, "./public/temp");
   },
   filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`); // Add timestamp to filename
+    cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
 
