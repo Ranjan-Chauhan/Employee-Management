@@ -47,9 +47,9 @@ courseSchema.statics.deleteCourseAndUpdateEmployees = async function (
 
     // Now delete the course
     await this.deleteOne({ _id: courseId });
-    console.log(
-      "Course deleted successfully and references removed from employees."
-    );
+    // console.log(
+    //   "Course deleted successfully and references removed from employees."
+    // );
   } catch (error) {
     console.error("Error deleting course:", error);
   }
