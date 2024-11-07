@@ -51,7 +51,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className="flex space-x-16 items-center pr-10">
-        <span className="font-semibold text-base py-1 px-3 rounded shadow-l hover:text-pink-600 hover:font-bold ">
+        <span className="font-semibold text-base py-1 px-3 rounded shadow">
           Hello - {loggedInUser ? loggedInUser.toUpperCase() : "Not Logged In"}
         </span>
         <button onClick={handleLogout}>
