@@ -28,7 +28,9 @@ const EditEmployee = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/courses"); // Replace with your API URL
+        const response = await fetch(
+          "https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses"
+        ); // Replace with your API URL
         const data = await response.json();
         setCourseList(data.data || []); // Assuming data.data contains the list of courses
       } catch (error) {
@@ -122,7 +124,7 @@ const EditEmployee = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/employees/${employee._id}`,
+        `https://employeemanagementserver-yr1bq7pb.b4a.run/api/employees/${employee._id}`,
         {
           method: "PUT",
           headers: {

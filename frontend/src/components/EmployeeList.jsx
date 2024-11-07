@@ -15,11 +15,14 @@ const EmployeeList = () => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/employees", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "https://employeemanagementserver-yr1bq7pb.b4a.run/api/employees",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (response.ok) {
           const data = await response.json();
           // console.log("Employees fetched successfully:", data);
@@ -37,11 +40,14 @@ const EmployeeList = () => {
 
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/courses", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (response.ok) {
           const data = await response.json();
           // console.log("Courses fetched successfully:", data);
@@ -116,7 +122,7 @@ const EmployeeList = () => {
   const deleteEmployee = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/employees/${id}`,
+        `https://employeemanagementserver-yr1bq7pb.b4a.run/api/employees/${id}`,
         {
           method: "DELETE",
           headers: {

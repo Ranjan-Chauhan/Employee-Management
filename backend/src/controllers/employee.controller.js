@@ -126,7 +126,7 @@ export const updateEmployee = async (req, res) => {
 
     // If a file is uploaded, save it to public/temp
     let profileImage = body.profileImage;
-    // const serverUrl = "http://localhost:8000";
+    // const serverUrl = "https://employeemanagementserver-yr1bq7pb.b4a.run";
 
     if (file) {
       // profileImage = `${serverUrl}/temp/${file.filename}`; // Append full URL to the image

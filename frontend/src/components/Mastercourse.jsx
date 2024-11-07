@@ -16,7 +16,9 @@ const Mastercourse = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/courses");
+      const response = await axios.get(
+        "https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses"
+      );
       setCourseList(response.data.data || []);
     } catch (error) {
       console.error("Error fetching courses:", error);
@@ -34,7 +36,7 @@ const Mastercourse = () => {
       // If editing, update the existing course
       try {
         const response = await axios.put(
-          `http://localhost:8000/api/courses/${editId}`,
+          `https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses/${editId}`,
           {
             name: courses.course,
           }
@@ -50,9 +52,12 @@ const Mastercourse = () => {
     } else {
       // If not editing, add a new course
       try {
-        const response = await axios.post("http://localhost:8000/api/courses", {
-          name: courses.course,
-        });
+        const response = await axios.post(
+          "https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses",
+          {
+            name: courses.course,
+          }
+        );
         setCourseList([...courseList, response.data.data]);
       } catch (error) {
         console.error("Error adding course:", error);
@@ -71,7 +76,9 @@ const Mastercourse = () => {
   const handleDelete = async (index) => {
     try {
       const courseId = courseList[index]._id;
-      await axios.delete(`http://localhost:8000/api/courses/${courseId}`);
+      await axios.delete(
+        `https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses/${courseId}`
+      );
       setCourseList(courseList.filter((_, i) => i !== index));
     } catch (error) {
       console.error("Error deleting course:", error);

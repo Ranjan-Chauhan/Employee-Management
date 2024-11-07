@@ -23,7 +23,9 @@ const CreateEmployee = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/courses");
+        const response = await fetch(
+          "https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses"
+        );
         const data = await response.json();
         setCourseList(data.data || []);
       } catch (error) {
@@ -108,13 +110,16 @@ const CreateEmployee = () => {
 
     const token = localStorage.getItem("jwtToken");
     try {
-      const response = await fetch("http://localhost:8000/api/employees", {
-        method: "POST",
-        body: formDataToSend,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "https://employeemanagementserver-yr1bq7pb.b4a.run/api/employees",
+        {
+          method: "POST",
+          body: formDataToSend,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         navigate("/EmployeeList");
