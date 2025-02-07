@@ -33,7 +33,7 @@ const Signup = () => {
       if (response.ok) {
         setMessage(result.message);
         alert("Signup Successfully, please login !!");
-        navigate("/Login");
+        navigate("/login");
       } else {
         setMessage(result.message || "Signup failed");
       }

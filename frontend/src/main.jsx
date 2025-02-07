@@ -27,10 +27,10 @@ function App() {
       children: [
         {
           path: "/",
-          element: <Navigate to="/Login" replace={true} />,
+          element: <Navigate to="/login" replace={true} />,
         },
         {
-          path: "Dashboard",
+          path: "dashboard",
           element: (
             <PrivateRoute
               element={<Dashboard />}
@@ -39,7 +39,7 @@ function App() {
           ),
         },
         {
-          path: "EmployeeList",
+          path: "employee-list",
           element: (
             <PrivateRoute
               element={<EmployeeList />}
@@ -48,7 +48,7 @@ function App() {
           ),
         },
         {
-          path: "Mastercourse",
+          path: "master-course",
           element: (
             <PrivateRoute
               element={<Mastercourse />}
@@ -57,7 +57,7 @@ function App() {
           ),
         },
         {
-          path: "CreateEmployee",
+          path: "create-employee",
           element: (
             <PrivateRoute
               element={<CreateEmployee />}
@@ -66,7 +66,7 @@ function App() {
           ),
         },
         {
-          path: "EditEmployee",
+          path: "edit-employee",
           element: (
             <PrivateRoute
               element={<EditEmployee />}
@@ -75,11 +75,11 @@ function App() {
           ),
         },
         {
-          path: "Login",
+          path: "login",
           element: <Login />,
         },
         {
-          path: "Signup",
+          path: "signup",
           element: <Signup />,
         },
       ],

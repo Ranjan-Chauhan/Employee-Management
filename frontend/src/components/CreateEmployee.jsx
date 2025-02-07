@@ -122,7 +122,7 @@ const CreateEmployee = () => {
       );
 
       if (response.ok) {
-        navigate("/EmployeeList");
+        navigate("/employee-list");
       } else {
         const result = await response.json();
         setSubmitError(result.message || "Error creating employee");

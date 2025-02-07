@@ -136,7 +136,7 @@ const EditEmployee = () => {
 
       if (response.ok) {
         // console.log("Employee updated successfully");
-        navigate("/EmployeeList");
+        navigate("/employee-list");
       } else {
         const errorData = await response.json();
         console.error("Error updating employee", errorData);

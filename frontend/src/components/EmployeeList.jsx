@@ -116,7 +116,7 @@ const EmployeeList = () => {
   };
 
   const editEmployee = (employee) => {
-    navigate(`/EditEmployee`, { state: { employee } });
+    navigate(`/edit-employee`, { state: { employee } });
   };
 
   const deleteEmployee = async (id) => {
@@ -158,7 +158,7 @@ const EmployeeList = () => {
         </div>
         <button
           className="hover:bg-blue-500 text-gray-700 hover:text-white py-1 px-6 border font-semibold hover:font-bold shadow-lg rounded justify-center items-center"
-          onClick={() => navigate("/CreateEmployee")}
+          onClick={() => navigate("/create-employee")}
         >
           Create Employee
         </button>

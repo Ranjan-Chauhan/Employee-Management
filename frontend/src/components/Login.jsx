@@ -20,16 +20,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "https://employeemanagementserver-yr1bq7pb.b4a.run/api/admin/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch("http://localhost:8000/api/admin/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
       if (response.ok) {
@@ -120,7 +117,7 @@ const Login = () => {
           <p className="mt-5 text-center text-sm text-gray-500">
             Don't have an account?{" "}
             <Link
-              to="/Signup"
+              to="/signup"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Please Sign Up

@@ -21,7 +21,7 @@ export const adminRegister = async (req, res) => {
     const newAdmin = new Admin({
       username,
       email,
-      password, // Plain text password stored here
+      password,
     });
 
     // Save the new admin to the database

@@ -16,7 +16,7 @@ const Dashboard = () => {
         </p>
         <div className="flex justify-center items-center font-semibold  ">
           <button
-            onClick={() => navigate("/CreateEmployee")}
+            onClick={() => navigate("/create-employee")}
             className="border shadow-lg rounded py-1.5 px-5 hover:bg-blue-400"
           >
             Create Employee

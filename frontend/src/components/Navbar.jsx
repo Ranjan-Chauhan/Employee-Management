@@ -19,45 +19,46 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="bg-blue-300 px-6 py-2 flex justify-between items-center">
+    <header className="bg-blue-300 px-6 py-2.5 flex justify-between items-center">
       <div className="flex pl-5">
-        <Link to="/Dashboard" className="flex items-center font-semibold ">
+        <Link to="/dashboard" className="flex items-center font-semibold ">
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRln9L-Mr039zwxerF3U9Rrw1Z16abkfSERyA&s"
-            className="w-14 h-14 rounded-full"
+            className="w-16 h-16 rounded-full object-contain object-center"
             alt="Logo"
           />
         </Link>
         <div className="flex space-x-16 items-center px-10">
           <Link
-            to="/Dashboard"
-            className="hover:underline hover:text-pink-600 hover:font-bold text-base font-semibold"
+            to="/dashboard"
+            className="hover:underline hover:text-pink-600 hover:font-bold text-lg font-semibold"
           >
             Home
           </Link>
 
           <Link
-            to="/EmployeeList"
-            className="hover:underline hover:text-pink-600 hover:font-bold text-base font-semibold"
+            to="/employee-list"
+            className="hover:underline hover:text-pink-600 hover:font-bold text-lg font-semibold"
           >
             Employee List
           </Link>
           <Link
-            to="/Mastercourse"
-            className="hover:underline hover:text-pink-600 hover:font-bold text-base font-semibold"
+            to="/master-course"
+            className="hover:underline hover:text-pink-600 hover:font-bold text-lg font-semibold"
           >
             Course List
           </Link>
         </div>
       </div>
       <div className="flex space-x-16 items-center pr-10">
-        <span className="font-semibold text-base py-1 px-3 rounded shadow">
-          Hello - {loggedInUser ? loggedInUser.toUpperCase() : "Not Logged In"}
+        <span className="font-semibold text-lg py-1 px-3 rounded">
+          Welcome -{" "}
+          {loggedInUser ? loggedInUser.toUpperCase() : "Not Logged In"}
         </span>
         <button onClick={handleLogout}>
           <Link
             to="/login"
-            className="hover:bg-red-600 hover:text-white text-base font-semibold rounded px-4 py-1"
+            className="hover:bg-red-600 hover:text-white text-lg font-semibold rounded px-4 py-1"
           >
             LOG OUT
           </Link>
