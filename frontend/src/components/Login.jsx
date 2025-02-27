@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 // import { UserContext } from "../context/UserContext";
 // import Navbar from "./Navbar";
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
@@ -20,16 +22,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        "https://employeemanagementserver-yr1bq7pb.b4a.run/api/admin/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/admin/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
       if (response.ok) {

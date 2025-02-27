@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 const EmployeeList = () => {
   const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
@@ -15,14 +17,11 @@ const EmployeeList = () => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await fetch(
-          "https://employeemanagementserver-yr1bq7pb.b4a.run/api/employees",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`${baseUrl}/api/employees`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.ok) {
           const data = await response.json();
           // console.log("Employees fetched successfully:", data);
@@ -40,14 +39,11 @@ const EmployeeList = () => {
 
     const fetchCourses = async () => {
       try {
-        const response = await fetch(
-          "https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`${baseUrl}/api/courses`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.ok) {
           const data = await response.json();
           // console.log("Courses fetched successfully:", data);
@@ -121,15 +117,12 @@ const EmployeeList = () => {
 
   const deleteEmployee = async (id) => {
     try {
-      const response = await fetch(
-        `https://employeemanagementserver-yr1bq7pb.b4a.run/api/employees/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/employees/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         setEmployees(employees.filter((employee) => employee._id !== id));
         setFilteredEmployees(

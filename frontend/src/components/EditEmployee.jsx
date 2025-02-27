@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 const EditEmployee = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -28,9 +30,7 @@ const EditEmployee = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch(
-          "https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses"
-        ); // Replace with your API URL
+        const response = await fetch(`${baseUrl}/api/courses`); // Replace with your API URL
         const data = await response.json();
         setCourseList(data.data || []); // Assuming data.data contains the list of courses
       } catch (error) {
@@ -123,16 +123,13 @@ const EditEmployee = () => {
     }
 
     try {
-      const response = await fetch(
-        `https://employeemanagementserver-yr1bq7pb.b4a.run/api/employees/${employee._id}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-          },
-          body: formDataToSend,
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/employees/${employee._id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+        },
+        body: formDataToSend,
+      });
 
       if (response.ok) {
         // console.log("Employee updated successfully");

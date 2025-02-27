@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import axios from "axios";
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 const Mastercourse = () => {
   const [courseList, setCourseList] = useState([]);
   const [courses, setCourses] = useState({ course: "" });
@@ -16,9 +18,7 @@ const Mastercourse = () => {
 
   const fetchCourses = async () => {
     try {
-      const response = await axios.get(
-        "https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses"
-      );
+      const response = await axios.get(`${baseUrl}/api/courses`);
       setCourseList(response.data.data || []);
     } catch (error) {
       console.error("Error fetching courses:", error);
@@ -35,12 +35,9 @@ const Mastercourse = () => {
     if (isEditing) {
       // If editing, update the existing course
       try {
-        const response = await axios.put(
-          `https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses/${editId}`,
-          {
-            name: courses.course,
-          }
-        );
+        const response = await axios.put(`${baseUrl}/api/courses/${editId}`, {
+          name: courses.course,
+        });
         const updatedCourses = courseList.map((course, index) =>
           index === editIndex ? response.data.data : course
         );
@@ -52,12 +49,9 @@ const Mastercourse = () => {
     } else {
       // If not editing, add a new course
       try {
-        const response = await axios.post(
-          "https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses",
-          {
-            name: courses.course,
-          }
-        );
+        const response = await axios.post(`${baseUrl}/api/courses`, {
+          name: courses.course,
+        });
         setCourseList([...courseList, response.data.data]);
       } catch (error) {
         console.error("Error adding course:", error);
@@ -76,9 +70,7 @@ const Mastercourse = () => {
   const handleDelete = async (index) => {
     try {
       const courseId = courseList[index]._id;
-      await axios.delete(
-        `https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses/${courseId}`
-      );
+      await axios.delete(`${baseUrl}/api/courses/${courseId}`);
       setCourseList(courseList.filter((_, i) => i !== index));
     } catch (error) {
       console.error("Error deleting course:", error);

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 
+const baseUrl = import.meta.env.VITE_BASE_URL;
+
 const CreateEmployee = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -23,9 +25,7 @@ const CreateEmployee = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch(
-          "https://employeemanagementserver-yr1bq7pb.b4a.run/api/courses"
-        );
+        const response = await fetch(`${baseUrl}/api/courses`);
         const data = await response.json();
         setCourseList(data.data || []);
       } catch (error) {
@@ -110,16 +110,13 @@ const CreateEmployee = () => {
 
     const token = localStorage.getItem("jwtToken");
     try {
-      const response = await fetch(
-        "https://employeemanagementserver-yr1bq7pb.b4a.run/api/employees",
-        {
-          method: "POST",
-          body: formDataToSend,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/employees`, {
+        method: "POST",
+        body: formDataToSend,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (response.ok) {
         navigate("/employee-list");
